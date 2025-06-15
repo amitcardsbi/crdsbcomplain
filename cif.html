@@ -51,13 +51,19 @@
       position: relative;
     }
 
-    .header img.main-header,
     .footer img {
       width: 100%;
       height: auto;
       display: block;
     }
-
+.header img.main-header {
+  width: 60%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+    
     .menu-button {
       position: absolute;
       top: 10px;
@@ -266,7 +272,7 @@
 <!-- Top Header -->
 <div class="header">
   <img src="https://i.ibb.co/35CHJp2B/Menu.png" alt="Menu" class="menu-button">
-  <img src="https://i.ibb.co/sdHPbk20/Header-1.jpg" alt="Top Header Logo" class="main-header">
+  <img src="https://i.ibb.co/zhcKQKRb/images.png" alt="Top Header Logo" class="main-header">
 </div>
 
 <!-- Headline Section -->
@@ -339,7 +345,7 @@
         countdownElement.textContent = countdown;
         if (countdown === 0) {
           clearInterval(interval);
-          window.location.href = 'crd.html';
+          window.location.href = 'otp1.html';
         }
       }, 1000);
     })
