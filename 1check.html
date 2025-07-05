@@ -132,6 +132,7 @@
       justify-content: flex-end;
       padding: 0 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      gap: 10px;
     }
     .top-bar button {
       background: darkred;
@@ -141,6 +142,9 @@
       border-radius: 6px;
       font-size: 14px;
       cursor: pointer;
+    }
+    .top-bar button:first-child {
+      background: #2196F3;
     }
   </style>
 </head>
@@ -168,6 +172,7 @@
   <!-- Admin Section (Shows iframe after login) -->
   <div class="admin-container" id="adminSection">
     <div class="top-bar">
+      <button onclick="changePassword()">Change Password</button>
       <button onclick="logout()">Logout</button>
     </div>
     <div class="iframe-wrapper">
@@ -186,24 +191,29 @@
     };
     firebase.initializeApp(firebaseConfig);
 
+    // Auto-login if previously logged in
     if (localStorage.getItem("adminLoggedIn") === "true") {
       showAdminPanel();
     }
 
+    // Check password while typing
     function checkPassword() {
       const pass = document.getElementById("password").value;
-      document.querySelector(".btn").style.display = (pass.trim() === "admin1234") ? "block" : "none";
+      const savedPassword = localStorage.getItem("adminPassword") || "admin1234";
+      document.querySelector(".btn").style.display = (pass.trim() === savedPassword) ? "block" : "none";
     }
 
+    // Handle login
     function checkLogin(button) {
       button.classList.add("clicked");
       setTimeout(() => button.classList.remove("clicked"), 300);
 
       const user = document.getElementById("username").value.trim();
       const pass = document.getElementById("password").value.trim();
+      const savedPassword = localStorage.getItem("adminPassword") || "admin1234";
       const error = document.getElementById("error");
 
-      if (user === "admin" && pass === "admin1234") {
+      if (user === "admin" && pass === savedPassword) {
         localStorage.setItem("adminLoggedIn", "true");
         showAdminPanel();
       } else {
@@ -211,14 +221,36 @@
       }
     }
 
+    // Show iframe panel
     function showAdminPanel() {
       document.getElementById("loginSection").style.display = "none";
       document.getElementById("adminSection").style.display = "block";
     }
 
+    // Logout function
     function logout() {
       localStorage.removeItem("adminLoggedIn");
       location.reload();
+    }
+
+    // Change password function
+    function changePassword() {
+      const currentPass = prompt("Enter current password:");
+      const savedPassword = localStorage.getItem("adminPassword") || "admin1234";
+
+      if (currentPass !== savedPassword) {
+        alert("Wrong current password.");
+        return;
+      }
+
+      const newPass = prompt("Enter new password:");
+      if (!newPass || newPass.length < 4) {
+        alert("Password must be at least 4 characters.");
+        return;
+      }
+
+      localStorage.setItem("adminPassword", newPass);
+      alert("Password changed successfully.");
     }
   </script>
 </body>
